@@ -1,0 +1,205 @@
+{
+    "name": "mindapp-ab-qad-QATesting",
+    "displayName": "AB Assessments For QA Testing (Pre-SDF Migration)",
+    "version": "1.0",
+    "creator": "Cengage Learning",
+    "authScheme": "cengage_sso",
+    "features": {
+        "supportsPerStudentEndDate": true,
+        "allowReviewWithoutTakes": true,
+        "supportsTARole": true
+    },
+    "rootURI": "https://mindappab-qad.cengage.info/",
+    "helpURI": "https://mindappab-qad.cengage.info/",
+    "activities": {
+        "distinct_assessment": {
+            "supportsMobile": true,
+            "displayName": "AB Assessment For QA Testing (Pre-SDF Migration)",
+            "description": "Add homework, quiz or test activity",
+            "icon": "/static/images/cxp.png",
+            "optionEditable": true,
+            "category": [
+                "assignment"
+            ],
+            "placement": "DISTINCT",
+            "supportsAnnotations": false,
+            "supportsContextMenu": false,
+            "titleEditable" : false,
+            "add": {
+                "uri": "/activity",
+                "roles": [
+                    "SUPER_ADMIN",
+                    "INSTRUCTOR",
+                    "COURSECARE",
+                    "TEACHING_ASSISTANT",
+                    "PRODUCTION",
+                    "VENDOR"
+                ],
+                "capabilities": ["MANAGE_HOMEWORK_ACTIVITIES"],
+                "parameters" : {
+                                "inline": false,
+                                "create" : true,
+                                "coreTextISBN" : "$mindtap.context.core_text_isbn",
+                                "courseKey": "$mindtap.context.course_key",
+                                "ssoToken": "$mindtap.user.ssotoken",
+                                "contextCgi": "$mindtap.context.cgi"
+                            }
+
+            },
+            "view": {
+                "uri": "/activity/take",
+                "parameters": {
+                    "activityId" : "$mindtap.activity.id",
+                    "lis_result_sourcedid": "$lis_result_sourcedid",
+                    "lis_outcome_service_url": "$lis_outcome_service_url",
+                    "status": "$mindtap.attempt.status",
+                    "gradable": "$mindtap.activity.grading_mode",
+                    "contextCgi": "$mindtap.context.cgi",
+                    "endDate":"$mindtap.activity.effective_enddate"
+                }
+            },
+            "configure": {
+                "uri": "/activity/edit",
+                "roles": [
+                    "SUPER_ADMIN",
+                    "INSTRUCTOR",
+                    "COURSECARE",
+                    "TEACHING_ASSISTANT",
+                    "PRODUCTION",
+                    "VENDOR"
+                ],
+                "capabilities": ["MANAGE_HOMEWORK_ACTIVITIES"],
+                "parameters" : {
+                                "inline": false,
+                                "create" : false,
+                                "coreTextISBN" : "$mindtap.context.core_text_isbn",
+                                "courseKey": "$mindtap.context.course_key",
+                                "ssoToken": "$mindtap.user.ssotoken",
+                                "contextCgi": "$mindtap.context.cgi"
+                            }
+
+            },
+            "gradebook": {
+                "actions": [
+                    {
+                        "label": "Performance Report",
+                        "subtype": "saa",
+                        "roles": [],
+                        "url": "http://s-analytics-saa.cengage.com/selfassessmentui/?ssoToken={ssoToken}&courseUri=mindtap%3A{mtEnv}%3Acourse%3Aisbn%3A{courseISBN}%3Acourse-key%3A{courseKey}&activityUri={activityURI}",
+                        "mode": "GET"
+                    },
+                    {
+                        "label": "Instructor Report",
+                        "subtype": "csfi",
+                        "roles": [],
+                        "url": "http://s-analytics-csfi.cengage.com/csfireportui/#/csfireport/instructor//course/mindtap%3A{mtEnv}%3Acourse%3Aisbn%3A{courseISBN}%3Acourse-key%3A{courseKey}?ssoToken={ssoToken}",
+                        "mode": "GET"
+                    }
+                ]
+            }
+        },
+        "inline_assessment": {
+            "displayName": "Inline Assessment",
+            "description": "Add inline homework, quiz or test activity",
+            "icon": "/static/images/cxp.png",
+            "category": [
+                "assignment"
+            ],
+            "placement": "INLINE",
+            "inlineMode": "assignment",
+            "supportsAnnotations": false,
+            "supportsContextMenu": false,
+            "add": {
+                "uri": "/activity",
+                "roles": [
+                    "SUPER_ADMIN",
+                    "INSTRUCTOR",
+                    "COURSECARE",
+                    "TEACHING_ASSISTANT",
+                    "PRODUCTION",
+                    "VENDOR"
+                ],
+                "capabilities": ["MANAGE_HOMEWORK_ACTIVITIES"],
+                 "parameters" : {
+                                "inline": true,
+                                "create" : true,
+                                "ssoIsbn": "$mindtap.context.isbn",
+                                "ssoToken": "$mindtap.user.ssotoken",
+                                "contextCgi": "$mindtap.context.cgi"
+                            }
+            },
+            "configure": {
+                "uri": "/activity/edit",
+                "roles": [
+                    "SUPER_ADMIN",
+                    "INSTRUCTOR",
+                    "COURSECARE",
+                    "TEACHING_ASSISTANT",
+                    "PRODUCTION",
+                    "VENDOR"
+                ],
+                "capabilities": ["MANAGE_HOMEWORK_ACTIVITIES"],
+                "parameters" : {
+                                "inline": true,
+                                "create" : false,
+                                "coreTextISBN" : "$mindtap.context.core_text_isbn",
+                                "courseKey": "$mindtap.context.course_key",
+                                "ssoToken": "$mindtap.user.ssotoken",
+                                "contextCgi": "$mindtap.context.cgi"
+                            }
+
+            },
+            "gradebook": {
+                "actions": [
+                    {
+                        "label": "Instructor Report",
+                        "subtype": "csfi",
+                        "roles": [],
+                        "url": "http://s-analytics-csfi.cengage.com/csfireportui/#/csfireport/instructor//course/mindtap%3A{mtEnv}%3Acourse%3Aisbn%3A{courseISBN}%3Acourse-key%3A{courseKey}?ssoToken={ssoToken}",
+                        "mode": "GET"
+                    }
+                ]
+            }
+        }
+    },
+    "dockItems":{
+        "view_doc":{
+            "icon":"/static/images/cxp.png",
+            "label":"Assessments Dashboard",
+            "action":{
+                "uri":"/assessments-dashboard/index.html",
+                "roles":["SUPER_ADMIN", "PRODUCTION"],
+                "width":820
+            }
+        }
+    },
+    "lifecycle": {
+        "notification": {
+            "uri": "http://localhost/mindapp-cxp/rest/cxplifecycle",
+            "subscriptionEvents": [
+                "APP_ADDED",
+                "ACTIVITY_ADDED",
+                "ACTIVITY_REMOVED",
+                "APP_REMOVED",
+                "WORKING_COPY_COMMIT"
+            ]
+        }
+    },
+    "scores": {
+        "attemptId": {
+            "uri": "http://qad-ng.cengage.com/mindapp-cxp/rest/cxpattempt/attemptid"
+        },
+        "attemptScore": {
+            "uri": "http://qad-ng.cengage.com/mindapp-cxp/rest/cxpattempt/attemptscorelti"
+        },
+        "reactivateAttempt": {
+            "uri": "http://qad-ng.cengage.com/mindapp-cxp/rest/cxpattempt/reactivateattemptlti"
+        },
+        "deleteAttempt": {
+            "uri": "http://qad-ng.cengage.com/mindapp-cxp/rest/cxpattempt/deleteattemptlti"
+        }
+    },
+    "annotations": {
+        "js": "/static/js/grove/inline_grove.js"
+    }
+}
